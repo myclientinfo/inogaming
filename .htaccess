@@ -1,0 +1,9 @@
+AddDefaultCharset utf-8
+RewriteEngine on
+
+RewriteRule ^(index|admin|admin_edit|admin_list|contact_us|about_us|search|recent_releases|upcoming_releases|links|signup).html$ $1.php
+RewriteRule ^events/([A-Za-z0-9_-]+)([/]{0,1})$ data.php?data_title=$1
+RewriteRule ^(qld|nsw|wa|nt|act|vic|tas|sa)([/]{0,1})$ index.php?state=$1
+RewriteRule ^(qld|nsw|wa|nt|act|vic|tas|sa)/([A-Za-z0-9_-]+)([/]{0,1})$ index.php?state=$1&region=$2
+RewriteRule ^(qld|nsw|wa|nt|act|vic|tas|sa)/([A-Za-z0-9_-]+)/([A-Za-z0-9&:#+_-]+)([/]{0,1})$ data.php?state=$1&region=$2&data=$3
+RewriteRule ^(qld|nsw|wa|nt|act|vic|tas|sa)/([A-Za-z0-9_-]+)/([A-Za-z0-9&:#+_-]+)/([0-9]+)_([A-Za-z0-9&:#+_-]+).html$ data.php?state=$1&region=$2&data=$3&instance_id=$4
