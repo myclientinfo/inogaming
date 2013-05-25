@@ -745,7 +745,7 @@ class Data{
 		if($group) $query .= ' GROUP BY '.$group;
 		if($order) $query .= ' ORDER BY '.$order;
 		if($number != '') $query .= " LIMIT ".$number."";
-echo $query;
+
 		$result = mysql_query($query);
 		$data_array = array();
 		if(!$result){

@@ -1,8 +1,19 @@
 <?php
-$dbhost = "localhost";
-$db = "inogaming";
-$dbuser = "root";
-$dbpass = "";
+
+if($_SERVER['HTTP_HOST']=='inogaming'){
+	$dbhost = "localhost";
+	$db = "inogaming";
+	$dbuser = "root";
+	$dbpass = "";
+} else {
+	$dbhost = "ino-gaming.mysql.eu1.frbit.com";
+	$db = "ino-gaming";
+	$dbuser = "ino-gaming";
+	$dbpass = "v0sC4XyY6seQT1qh";
+
+	//$dbpass = '';
+}
+
 
 $dbh = mysql_connect ("localhost", $dbuser, $dbpass) or die ('I cannot connect to the database because: ' . mysql_error());
 mysql_select_db ($db) or die('cant connect'); 
