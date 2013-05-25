@@ -1,0 +1,69 @@
+<html>
+<head>
+    <title>Test Page</title>
+    <script language="Javascript" src="/js/prototype.js"></script>
+<style>
+label {width: 100px; font-family: arial; font-size: 12px; } input {height: 18px; border: 1px solid #666666; } #change_log {border: 1px solid #999999;} div {font-family: arial; font-size: 12px; } </style> </head>
+
+
+<body>
+
+<form id="my_form">
+<label for="name">Name: </label><input name="name" id="form_name"><br><br> 
+<label for="email">Email: </label><input name="email" id="form_email"><br><br>
+<label for="message">Message: </label><textarea name="message" id="form_message"></textarea><br><br>
+<label for="state">State: </label><select name="state" id="form_state"><option>Queensland</option><option>Victoria</option></select><br><br>
+</form>
+
+<form id="log_form" onsubmit="return false;"> 
+<input type="hidden" name="changed_fields" id="changed_fields"> 
+<div id="change_log"></div> 
+<button name="save" onclick="save_log();return false;">save</button> 
+</form> 
+
+<script language="Javascript"> 
+var change_log = $('change_log'); 
+var changed_fields = []; 
+var translate_fields = {form_name:'Name',form_email:'Email Address',form_message:'Message Body',form_state:'State'}; 
+function save_log(){
+    var all_fields = $A(document.getElementsByTagName('input'));
+    var final_fields = [];
+    all_fields.each(function(f) {
+        if(f.type == 'checkbox' && f.checked){
+            final_fields.push(f.value);
+        }
+    });
+    //final_fields = final_fields.uniq();
+    console.log(final_fields);
+}
+
+var Checks = {
+  change_field: function(event) {
+    //console.log(Event.element(event).id);
+    //console.log(Event.element(event).value);
+    var new_div = document.createElement('div');
+    var text_node = document.createTextNode('Changes made to ' + translate_fields[Event.element(event).id]);
+    //var text_node = createTextNode(
+    var c_box = document.createElement('input');
+    c_box.setAttribute('type','checkbox');
+    c_box.setAttribute('checked','true');
+    c_box.setAttribute('value', Event.element(event).id);
+    new_div.appendChild(c_box);
+    new_div.appendChild(text_node);
+    changed_fields.push(Event.element(event).id);
+    change_log.appendChild(new_div);
+    //console.log(changed_fields);
+
+  }
+};
+
+var form_fields = ['form_email','form_message','form_state'];
+
+form_fields.each(function(f) {
+    Event.observe(f, 'change', Checks.change_field.bindAsEventListener(Checks));
+});
+
+
+</script>
+</body>
+</html>

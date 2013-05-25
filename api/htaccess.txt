@@ -1,0 +1,6 @@
+RewriteEngine on
+php_flag short_open_tag off
+
+RewriteRule ^feed.rss$ rss.php
+RewriteRule ^changes.rss$ changes.php
+

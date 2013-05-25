@@ -1,0 +1,266 @@
+<html>
+
+<head>
+	<title>Test</title>
+
+	<style>
+	
+	body, td, div{font-family: tahoma; font-size: 11px;}
+	label .standard {margin-right: 5px; width: 100px; display: block; float: left;}
+	textarea {width: 250px; height: 100px; font-family: tahoma; font-size: 10px;}
+	#exampleEvent {width: 350px; border: 1px solid #ccc; padding: 5px; float: left;}
+	#exampleEventTitle {font-weight: bold;}
+	#exampleInstances {border: 1px solid #ebebeb; margin:5px; padding: 5px;}
+	#exampleInstancesHeader {margin-bottom: 5px;}
+	
+	#divAddButton { width: 365px; border: 0px solid blue;}
+	
+	#buttonAddInstance {float: right; clear: both;}
+	
+	input {width: 250px; height: 15px;  font-family: tahoma; font-size: 10px;}
+	
+	.exampleInstance{width: 100%; margin-bottom: 10px;}
+	.formInstance{margin-bottom: 10px; background-color:#ebebeb; padding: 5px;}
+	
+	.timeField {width: 110px; }
+	.timeTitle {width:200px;}
+	.instanceDescription {height: 50px; font-size: 10px;}
+	
+	.endTime {float: left; display: inline; margin-left: 4px}
+	.startTime {float: left;display: inline;}
+	</style>
+	<script language="Javascript">
+	function updateExample(){
+		var inputForm = document.getElementById("inputForm"); 
+		var inputList = inputForm.getElementsByTagName("input"); 
+		var textareaList = inputForm.getElementsByTagName("textarea"); 
+		var thisID;
+		for (var i = 0; i < inputList.length; i++) { 
+			thisID = inputList[i].getAttribute('id');
+			thisClass = document.getElementById('example'+ thisID).className;
+			document.getElementById('example'+ thisID).innerHTML = (thisClass == 'endTime' ? ' to ' : '') + document.getElementById(thisID).value;
+			
+		}
+		for (var i = 0; i < textareaList.length; i++) { 
+			thisID = textareaList[i].getAttribute('id');
+			document.getElementById('example'+ thisID).innerHTML = document.getElementById(thisID).value.replace(/\n/g,"<br>");
+		}
+		
+		//var allInputArray = document.myForm.getElementsByTagName();
+	}
+	
+	
+	
+	function getNextInstanceId(){
+		var locs = document.getElementById('exampleInstances'); 
+		var count = 1;
+		for( var x = 0; x < locs.childNodes.length; x++ ) {
+			if(!is_ignorable(locs.childNodes[x])) count++;
+		}
+		return count;
+	}
+	
+	function is_ignorable( nod )
+	{
+	  return ( nod.nodeType == 8) || // A comment node
+	         ( (nod.nodeType == 3) && is_all_ws(nod) ); // a text node, all ws
+	}
+	
+	function is_all_ws( nod )
+	{
+	  // Use ECMA-262 Edition 3 String and RegExp features
+	  return !(/[^\t\n\r ]/.test(nod.data));
+	}
+	
+	function addInstance(){
+		
+		var nextInstanceId = getNextInstanceId();
+		var locs = document.getElementById('exampleInstances');
+		var formLocs = document.getElementById('Instances');
+		
+		
+		
+		var newInstance = document.createElement('div');
+		var newInstanceTitle = document.createElement('div');
+		var newInstanceDescription = document.createElement('div');
+		var newInstanceTimes = document.createElement('div');
+		
+		var formNewInstance = document.createElement('div');
+		var formNewInstanceTitleLabel = document.createElement('label');
+		var formNewInstanceTitle = document.createElement('input');
+		var formNewInstanceDescriptionLabel = document.createElement('label');
+		var formNewInstanceDescription = document.createElement('textarea');
+		var formNewInstanceTimes = document.createElement('div');
+		var theBR = document.createElement('br');
+		
+		newInstance.setAttribute('name','exampleInstance['+nextInstanceId+']');
+		newInstance.setAttribute('id','exampleInstance['+nextInstanceId+']');
+		newInstance.setAttribute('class','exampleInstance');
+		
+		newInstanceTitle.setAttribute('name','exampleInstance['+nextInstanceId+'][title]');
+		newInstanceTitle.setAttribute('id','exampleInstance['+nextInstanceId+'][title]');
+		
+		newInstanceDescription.setAttribute('name','exampleInstance['+nextInstanceId+'][description]');
+		newInstanceDescription.setAttribute('id','exampleInstance['+nextInstanceId+'][description]');
+		
+		newInstanceTimes.setAttribute('name','exampleInstance['+nextInstanceId+'][times]');
+		newInstanceTimes.setAttribute('id','exampleInstance['+nextInstanceId+'][times]');
+		
+		formNewInstance.setAttribute('name','Instance['+nextInstanceId+']');
+		formNewInstance.setAttribute('id','Instance['+nextInstanceId+']');
+		formNewInstance.setAttribute('onclick','setBg(this);');
+		formNewInstance.setAttribute('class','formInstance');
+		
+		formNewInstanceTimes.setAttribute('name','Instance['+nextInstanceId+'][times]');
+		formNewInstanceTimes.setAttribute('id','Instance['+nextInstanceId+'][times]');
+		
+		
+		
+		formNewInstanceTitle.setAttribute('name','Instance['+nextInstanceId+'][title]');
+		formNewInstanceTitle.setAttribute('id','Instance['+nextInstanceId+'][title]');
+		formNewInstanceDescription.setAttribute('name','Instance['+nextInstanceId+'][description]');
+		formNewInstanceDescription.setAttribute('id','Instance['+nextInstanceId+'][description]');
+		
+		formNewInstanceTitle.setAttribute('onKeyUp','updateExample();');
+		formNewInstanceDescription.setAttribute('class','instanceDescription');
+		formNewInstanceDescription.setAttribute('onKeyUp','updateExample();');
+		
+		var instanceTitleLabelText = document.createTextNode('Title');
+		var instanceDescriptionLabelText = document.createTextNode('Description');
+		
+		formNewInstanceTitleLabel.setAttribute('for','Instance['+nextInstanceId+'][title]');
+		formNewInstanceDescriptionLabel.setAttribute('for','Instance['+nextInstanceId+'][description]');
+			
+		formNewInstanceTitleLabel.appendChild(instanceTitleLabelText);
+		formNewInstanceDescriptionLabel.appendChild(instanceDescriptionLabelText);
+		
+		newInstance.appendChild(newInstanceTitle);
+		newInstance.appendChild(newInstanceDescription);
+		newInstance.appendChild(newInstanceTimes);
+		
+		
+		locs.appendChild(newInstance);
+		
+		// form stuff
+		
+		
+		//formNewInstanceTitle.appendChild(theBR);
+		
+		formNewInstance.appendChild(formNewInstanceTitleLabel);
+		formNewInstance.appendChild(formNewInstanceTitle);
+		formNewInstance.appendChild(document.createElement('br'));
+		formNewInstance.appendChild(formNewInstanceDescriptionLabel);
+		formNewInstance.appendChild(formNewInstanceDescription);
+		formNewInstance.appendChild(document.createElement('br'));
+		
+		
+		var newTime = document.createElement('div');
+		
+		
+		//exampleInstance[1][times][1]
+		
+		
+		formNewInstance.appendChild(formNewInstanceTimes);
+		
+		formLocs.appendChild(formNewInstance);
+		
+	
+	}
+	
+	function getElementsByClassName( className ){
+
+	  var ret = new Array();
+	  var nodes = document.getElementsByTagName("*");
+	
+	  for( var i = 0; i < nodes.length; ++i ){
+	    var node = nodes[i];
+	    if( node.hasAttribute("class") && node.getAttribute("class") == className ){
+	      ret.push( node );
+	    }
+	  }
+	  return ret;
+	}
+	
+	function setBg(event){
+		clearBgs();
+		event.style.backgroundColor = '#CCCCCC';
+		document.getElementById('example'+event.id).style.backgroundColor = '#CCCCCC';
+		
+	
+	}
+	
+	function clearBgs(){
+		var array = getElementsByClassName('exampleInstance');
+		var array2 = getElementsByClassName('formInstance');
+		for( var i = 0; i < array.length; ++i ){
+			array[i].style.backgroundColor = '#ebebeb';
+		}
+		for( var i = 0; i < array2.length; ++i ){
+			array2[i].style.backgroundColor = '#ebebeb';
+		}
+	
+	}
+	
+	
+	</script>
+</head>
+
+<body onload="updateExample();">
+<form id="inputForm" name="inputForm" onsubmit="return false;">
+<div id="exampleEvent" name="exampleEvent">
+
+	<div id="exampleEventTitle" name="exampleEventTitle"> </div>
+	<div id="exampleEventDescription" name="exampleEventDescription"> </div>
+	
+	<div id="exampleInstanceBox" name="exampleInstanceBox">
+		<div id="exampleInstancesHeader" name="exampleInstancesHeader">Instances</div>
+		<div id="exampleInstances" name="exampleInstance">
+			<div id="exampleInstance[1]" name="exampleInstance[1]" class="exampleInstance">
+				<div id="exampleInstance[1][title]" name="exampleInstance[1][title]"></div>
+				<div id="exampleInstance[1][description]" name="exampleInstance[1][description]"></div>
+				<div id="exampleInstance[1][times]" name="exampleInstance[1][times]">
+					<div id="exampleInstance[1][times][1]" name="exampleInstance[1][times][1]"></div>
+					<div id="exampleInstance[1][times][1][title]" name="exampleInstance[1][times][1][title]"></div>
+					<span id="exampleInstance[1][times][1][start]" name="exampleInstance[1][times][1][start]" class="startTime"></span>
+					<span id="exampleInstance[1][times][1][end]" name="exampleInstance[1][times][1][end]" class="endTime"></span>
+					<div id="exampleInstance[1][times][1][rsvp]" name="exampleInstance[1][times][1][rsvp]"></div>
+					<div style="clear: both;"></div>
+				</div>
+				
+			</div>
+		</div>
+	
+	</div>
+
+</div>
+
+
+<div style="float: left; margin-left: 10px;">
+<label for="EventTitle">Event Title:</label><input type="text" id="EventTitle" name="EventTitle" value="This is an event title" onKeyUp="updateExample();"><br><br>
+
+<label for="EventDescription">Event Title:</label><textarea id="EventDescription" name="EventDescription" onKeyUp="updateExample();">A much longer description of the event would go here.</textarea><br><br>
+<div id="Instances" name="Instances">
+	<div id="Instance[1]" name="Instance[1]" onclick="setBg(this);" class="formInstance">
+		<label for="Instance[1][title]">Title</label><input type="text" id="Instance[1][title]" name="Instance[1][title]" value="" onKeyUp="updateExample();"><br>
+		<label for="Instance[1][description]">Description</label><textarea id="Instance[1][description]" name="Instance[1][description]" class="instanceDescription" onKeyUp="updateExample();"></textarea><br><br>
+		<div id="Instance[1][times]" name="Instance[1][times]">
+			<label for="Instance[1][times][1][title]">Name:</label><input type="text" id="Instance[1][times][1][title]" name="Instance[1][times][1][title]" value="" onKeyUp="updateExample();" class="timeTitle"><br>
+			<label for="Instance[1][times][1][start]">From </label><input type="text" id="Instance[1][times][1][start]" name="Instance[1][times][1][start]" value="" onKeyUp="updateExample();" class="timeField"> <span class="">to</span>
+			<label for="Instance[1][times][1][end]"></label><input type="text" id="Instance[1][times][1][end]" name="Instance[1][times][1][end]" value="" onKeyUp="updateExample();" class="timeField"><br>
+			<label for="Instance[1][times][1][rsvp]">RSVP by </label><input type="text" id="Instance[1][times][1][start]" name="Instance[1][times][1][rsvp]" value="" onKeyUp="updateExample();" class="timeField"><br><br>
+		</div>
+	</div>
+	
+</div>
+<div id="divAddButton" name="divAddButton"><button onClick="addInstance(); return false;" id="buttonAddInstance">Add Instance</button><div style="clear: both;"></div></div>
+<div>
+
+
+<button onClick="return false;">Save (disabled)</button>
+</div>
+</div>
+</form>
+</body>
+
+
+</html>
