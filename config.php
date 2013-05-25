@@ -15,7 +15,7 @@ if($_SERVER['HTTP_HOST']=='inogaming'){
 }
 
 
-$dbh = mysql_connect ("localhost", $dbuser, $dbpass) or die ('I cannot connect to the database because: ' . mysql_error());
+$dbh = mysql_connect ($dbhost, $dbuser, $dbpass) or die ('I cannot connect to the database because: ' . mysql_error());
 mysql_select_db ($db) or die('cant connect'); 
 mysql_query("SET NAMES 'utf8'");
 
