@@ -70,11 +70,11 @@ $i++;
 
 
 
-<?
+<?php
   //  }
 }
 ?>
-<?
+<?php
 if(!isset($_GET['platform'])){
 	?>
 	<div>
@@ -88,13 +88,13 @@ Next &raquo;
 </div>
 
 
-	<?
+	<?php
 }
 ?>
 
 	<script language="Javascript" src="/js/prototype.js"></script>
 	<script>
-<?
+<?php 
 if(isset($_GET['state'])){
 	?>
 		var state_colours = {template:'#FFCC33,#FFE59A',
@@ -124,7 +124,7 @@ if(isset($_GET['state'])){
 		});
 	}
 
-	setColours('<?=(isset($_GET['platform'])?$_GET['platform']:'template')?>');
+	setColours('<?php echo (isset($_GET['platform'])?$_GET['platform']:'template')?>');
 <?php
 }
 ?>
