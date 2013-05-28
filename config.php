@@ -8,7 +8,7 @@ if($_SERVER['HTTP_HOST']=='inogaming'){
 	$dbhost = "ino-gaming.mysql.eu1.frbit.com";
 	$db = "ino-gaming";
 	$dbuser = "ino-gaming";
-	$dbpass = "v0sC4XyY6seQT1qh";
+	$dbpass = "1fhxs3LafcCx8z7W";
 
 	//$dbpass = '';
 }
