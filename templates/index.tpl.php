@@ -1,15 +1,12 @@
-<?
-header("content-type:text/html;charset=utf-8");
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html>
 <head><meta http-equiv="content-type" content="text/html;charset=utf-8">
-	<title><?=$title?></title>
+	<title><?php echo $title?></title>
 	<meta name="description" content="Gamers Events is the number one listing for video game and gaming events all round Australia - Expos, LAN's, tours, shows, parties, and more!">
 	<meta name="keywords" content="australian, gamer, events, gaming, australia, videogames, expo, lan, tours, show, party, exhibition, video games">
 	<link rel="stylesheet" href="/js/style.css">
-	<?=$script?>
+	<?php echo $script?>
 	<script type="text/javascript" src="/js/prototype.js"></script>
 	<script language="JavaScript">
 	var actual_left_height;
@@ -51,9 +48,9 @@ header("content-type:text/html;charset=utf-8");
     
 </head>
 
-<body<?=$body_attributes?>>
+<body<?php echo $body_attributes?>>
 
-<?=$body_content?>
+<?php echo $body_content?>
 <div align="center" id="footerContainer">
 <div class="footerHeader">
 </div>
