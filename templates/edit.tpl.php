@@ -550,9 +550,9 @@ function popUpLoad(platform){
 foreach($category_array as $plat){
 ?>
 <div class="platform_box">
-	<div class="platform_off" id="disable_<?=$plat['category_short']?>" onclick="deleteInstance(<?=$plat['category_id']?>);" style="color: #000000;">disable</div>
-	<div id="platform_<?=$plat['category_short']?>" class="platform_image_box"><img src="/images/admin_system_<?=$plat['category_short']?>.jpg" id="image_<?=$plat['category_short']?>" border="0" onclick=""></div>
-	<div class="platform_on" id="enable_<?=$plat['category_short']?>" onclick="addInstance(<?=$plat['category_id']?>)">enable</div>
+	<div class="platform_off" id="disable_<?php echo $plat['category_short']?>" onclick="deleteInstance(<?php echo $plat['category_id']?>);" style="color: #000000;">disable</div>
+	<div id="platform_<?php echo $plat['category_short']?>" class="platform_image_box"><img src="/images/admin_system_<?php echo $plat['category_short']?>.jpg" id="image_<?php echo $plat['category_short']?>" border="0" onclick=""></div>
+	<div class="platform_on" id="enable_<?php echo $plat['category_short']?>" onclick="addInstance(<?php echo $plat['category_id']?>)">enable</div>
 </div>
 <?php
 }
@@ -567,13 +567,14 @@ foreach($category_array as $plat){
 
 <?php
 if(!empty($msg)){ ?>
-<div class="msgs"><?
+<div class="msgs">
+<?php
 foreach($msg as $m){
 	print "<div class='msg'>".$m."</div>";
 }
 ?>
 </div>
-<? }
+<?php }
 
 $month_array = Site::getMonthsArray();
 ?>
@@ -585,10 +586,10 @@ else print "To change the data for a specific platform, such as price, descripti
 
 
 <form id="edit_form" method="post">
-<input type="hidden" name="id" id="id" value="<?=$id?>">
-<input type="hidden" name="instance_id" id="instance_id" value="<?=($edit_type=='i'?$id:0)?>">
+<input type="hidden" name="id" id="id" value="<?php echo $id?>">
+<input type="hidden" name="instance_id" id="instance_id" value="<?php echo ($edit_type=='i'?$id:0)?>">
 <input type="hidden" name="data_id" id="data_id" value="">
-<input type="hidden" name="edit_type" id="edit_type" value="<?=$edit_type?>">
+<input type="hidden" name="edit_type" id="edit_type" value="<?php echo $edit_type?>">
 <input type="hidden" name="category_id" id="category_id" value="">
 <input type="hidden" name="current_platform" id="current_platform" value="">
 <input type="hidden" name="main_form" value="1">
@@ -612,17 +613,17 @@ if($edit_type=='i'){
 
 <?php if($edit_type=='d'){ ?>
 <div class="formDark">
-<label for="title">Title:</label><input class="form_version" type="text" id="title" name="title" value="<?=(isset($content[$etf.'_title'])?$content[$etf.'_title']:'')?>"><span class="text_version" id="title_text_version"><?=(isset($content[$etf.'_title'])?$content[$etf.'_title']:'')?></span>
+<label for="title">Title:</label><input class="form_version" type="text" id="title" name="title" value="<?php echo (isset($content[$etf.'_title'])?$content[$etf.'_title']:'')?>"><span class="text_version" id="title_text_version"><?php echo (isset($content[$etf.'_title'])?$content[$etf.'_title']:'')?></span>
 </div>
 
 
 <div class="formDark">
-<label for="website">Website:</label><input class="form_version" type="text" id="website" name="website" value="<?=isset($content['website'])?$content['website']:''?>"><span class="text_version" id="website_text_version"><?=isset($content['website'])?$content['website']:''?></span>
+<label for="website">Website:</label><input class="form_version" type="text" id="website" name="website" value="<?php echo isset($content['website'])?$content['website']:''?>"><span class="text_version" id="website_text_version"><?php echo isset($content['website'])?$content['website']:''?></span>
 </div>
 
 <div class="formDark">
 <label for="genre_id">Genre:</label><select class="form_version" id="genre_id" name="genre_id"><?php
-foreach($genres as $k => $v){ ?><option value="<?=$k?>"<?=(isset($content['genre_id'])&&$k==$content['genre_id']?' selected':'')?>><?=$v?></option><?php } ?></select><span class="text_version" id="genre_id_text_version"><?=isset($content['genre_id'])?$genres[$content['genre_id']]:''?></span>
+foreach($genres as $k => $v){ ?><option value="<?php echo $k?>"<?php echo (isset($content['genre_id'])&&$k==$content['genre_id']?' selected':'')?>><?php echo $v?></option><?php } ?></select><span class="text_version" id="genre_id_text_version"><?php echo isset($content['genre_id'])?$genres[$content['genre_id']]:''?></span>
 <?php } ?>
 </div>
 
@@ -677,7 +678,7 @@ foreach($genres as $k => $v){ ?><option value="<?=$k?>"<?=(isset($content['genre
 
 <div class="formLight" id="box_rating_id"><div id="revert_rating_id" class="revert_div" onclick="revert_to_template('rating_id');">revert to template</div>
 <label for="rating_id">Rating:</label><select id="rating_id" name="rating_id" style="font-size: 9px;"><?php
-foreach($ratings as $k => $v){ ?><option value="<?=$k?>"<?=((isset($content[$etf.'_rating_id'])&&$k==$content[$etf.'_rating_id'])||(!isset($content[$etf.'_rating_id'])||$content[$etf.'_rating_id']==''||$content[$etf.'_rating_id']==0)&&$v=='TBD'?' selected':'')?>><?=$v?></option><?php } ?></select>
+foreach($ratings as $k => $v){ ?><option value="<?php echo $k?>"<?php echo ((isset($content[$etf.'_rating_id'])&&$k==$content[$etf.'_rating_id'])||(!isset($content[$etf.'_rating_id'])||$content[$etf.'_rating_id']==''||$content[$etf.'_rating_id']==0)&&$v=='TBD'?' selected':'')?>><?php echo $v?></option><?php } ?></select>
 </div>
 
 <div class="formLight" id="box_description"><div id="revert_description" class="revert_div" onclick="revert_to_template('description');">revert to template</div>
@@ -823,6 +824,6 @@ form_fields.each(function(f) {
 <div style="clear: both;"></div>
 <?php if(isset($_GET['data_id'])){ ?>
 <script>
-getData(<?=$_GET['data_id']?>);
+getData(<?php echo $_GET['data_id']?>);
 </script>
 <?php }?>
